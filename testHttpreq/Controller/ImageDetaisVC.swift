@@ -19,8 +19,13 @@ class ImageDetaisVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        if passedImage != nil {
             imageView.image = passedImage
+        } else {
+            
+            Utilities.alert(title: "Err", message: "error loading photo ")
+        }
+        
        
        
         

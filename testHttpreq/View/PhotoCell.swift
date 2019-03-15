@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 
 
@@ -14,19 +15,59 @@ import UIKit
 class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var imageView:  UIImageView!
     
+   
+    @IBOutlet weak var cellButton: CellButton!
+    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+ 
+    var canceled = false
+    
     override func awakeFromNib() {
         setView()
+        
     }
+    
+    
+    
     func downloadImage(withUrlString urlString: String) {
+        spinner.style = .whiteLarge
+        spinner.hidesWhenStopped = true
+        spinner.startAnimating()
         
-        
-        let url = URL(string: urlString)!
+         canceled = true
+        guard let url = URL(string: urlString) else {return}
         
         if let imageFromCache = imageCache.object(forKey: url.absoluteString as AnyObject) as? UIImage {
             self.imageView.image = imageFromCache
+             self.spinner.stopAnimating()
             
             return
         }
+       
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            
+            if error != nil {
+                debugPrint(String(describing: error?.localizedDescription))
+                return
+            }
+            
+            DispatchQueue.main.async {
+                if  let imageToCache = UIImage(data: data!) {
+                    self.imageView.image = imageToCache
+                    self.spinner.stopAnimating()
+                    imageCache.setObject(imageToCache, forKey: url.absoluteString as AnyObject)
+                }
+                
+               
+                
+            }
+        }).resume()
+        }
+    func cancalDownloadImage(url : String ){
+        
+        guard let url = URL(string: url) else {return}
+        
+        print("imageDownload canceld ", url)
         
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             
@@ -36,23 +77,18 @@ class PhotoCell: UICollectionViewCell {
             }
             
             DispatchQueue.main.async {
-                let imageToCache = UIImage(data: data!)
-                self.imageView.image = imageToCache
-               
-                //imageCache.setObject(imageToCache!, forKey: url.absoluteString as AnyObject)
+                if  let imageToCache = UIImage(data: data!) {
+                    self.imageView.image = imageToCache
+                    self.spinner.stopAnimating()
+                    imageCache.setObject(imageToCache, forKey: url.absoluteString as AnyObject)
+                }
+                
+                
+                
             }
-        }).resume()
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        }).cancel()
+        
+        }
     func setView(){
         self.layer.backgroundColor = UIColor.lightGray.cgColor
         self.layer.cornerRadius = 10
@@ -61,6 +97,18 @@ class PhotoCell: UICollectionViewCell {
         
         
     }
+    }
     
-}
-let imageCache = NSCache<AnyObject, AnyObject>()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+var imageCache: NSCache<AnyObject, AnyObject> = NSCache()

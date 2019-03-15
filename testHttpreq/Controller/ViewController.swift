@@ -27,6 +27,7 @@ class ViewController: UIViewController {
     var isLoading: Bool = false
     var photoThumbnail: UIImage!
     var selectedIndexPath: IndexPath!
+    var alertIndexPath : IndexPath!
     
     
     
@@ -70,7 +71,7 @@ class ViewController: UIViewController {
                     guard let data = data else {return}
             do {
                     let jsonData = try JSON(data : data)
-                for i in 0...9 {
+                for i in 0...jsonData.count {
                     
                     self.retrivePhotoData(i: i, jsonData: jsonData)
                     
@@ -104,6 +105,35 @@ class ViewController: UIViewController {
         self.photoArray.append(url)
     
       
+        
+    }
+    @objc func takeAction(sender : UIButton){
+        print(sender.tag)
+       //
+        self.showAlert(num: sender.tag)
+    }
+    func showAlert(num : Int){
+        let alert = UIAlertController(title: "preform action for the url", message: "we can preforem action for the photo", preferredStyle: .actionSheet)
+        let cancelDownloadAction = UIAlertAction(title: "Cancel download", style: .default) { (action) in
+            print("donload canceld")
+            
+            // cancel dowload image
+            let indexPath = IndexPath(row: num, section: 0)
+            
+            let cell = self.collectionView.cellForItem(at: indexPath) as! PhotoCell
+            cell.cancalDownloadImage(url: self.photoArray[indexPath.row].regular)
+            print(self.photoArray[indexPath.row].full)
+            
+        }
+        let downloadInWebViewAction = UIAlertAction(title: "Download in the web", style: .default) { (action) in
+            print("open in the web")
+            
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelDownloadAction)
+        alert.addAction(downloadInWebViewAction)
+        alert.addAction(cancel)
+       UIApplication.shared.delegate!.window!!.rootViewController!.present(alert, animated: true, completion: nil)
         
     }
     
@@ -146,17 +176,20 @@ extension ViewController : PinterestLayoutDelegate {
 
 extension  ViewController : UICollectionViewDataSource, UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return photoArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PHOTO_CELL, for: indexPath) as! PhotoCell
-       // let image = images[indexPath.item]
-      //  cell.imageView.image = image
-        cell.downloadImage(withUrlString: photoArray[indexPath.item].regular)
        
+       cell.downloadImage(withUrlString: photoArray[indexPath.item].regular)
+        cell.cellButton.tag = indexPath.item
+        cell.cellButton.addTarget(self, action: #selector(self.takeAction), for: .touchUpInside)
         
-        cell.imageView.image = photoThumbnail
+        
+        
+       
         
         return cell
     }
@@ -165,14 +198,15 @@ extension  ViewController : UICollectionViewDataSource, UICollectionViewDelegate
     {
       let cell = collectionView.cellForItem(at:  indexPath) as! PhotoCell
         
-        photoThumbnail = cell.imageView.image
+        self.photoThumbnail = cell.imageView.image
         
         self.selectedIndexPath = indexPath
         
-        
+
     
         performSegue(withIdentifier: SHOW_IMAGE_SEGUE, sender: photoThumbnail)
     }
+    
     
     
     
@@ -190,6 +224,7 @@ extension ViewController : ZoomingViewController {
     func zoomingImageView(for transition: ZoomTransitioningDelegate) -> UIImageView? {
         if let indexPath = selectedIndexPath {
             let cell = collectionView?.cellForItem(at: indexPath) as! PhotoCell
+            
             return cell.imageView
         }
         
