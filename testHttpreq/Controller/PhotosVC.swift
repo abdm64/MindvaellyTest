@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PhotosVC.swift
 //  testHttpreq
 //
 //  Created by ABD on 09/03/2019.
@@ -16,7 +16,7 @@ import SDWebImage
 
 
 
-class ViewController: UIViewController {
+class PhotosVC : UIViewController {
     // Mark : Outltes
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -143,7 +143,7 @@ class ViewController: UIViewController {
         
             let imagedetailVC = segue.destination as! ImageDetaisVC
             let backItem = UIBarButtonItem()
-            backItem.title = "Back"
+            backItem.title = "Photos"
             navigationItem.backBarButtonItem = backItem
             imagedetailVC.passedImage = photoThumbnail
             
@@ -157,7 +157,7 @@ class ViewController: UIViewController {
     }
 // Mark Flow layout Deleget
 
-extension ViewController : PinterestLayoutDelegate {
+extension PhotosVC : PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
         let height : CGFloat = CGFloat(photoArray[indexPath.item].height)
     
@@ -174,7 +174,7 @@ extension ViewController : PinterestLayoutDelegate {
 }
 // Mark : DataSource
 
-extension  ViewController : UICollectionViewDataSource, UICollectionViewDelegate{
+extension  PhotosVC : UICollectionViewDataSource, UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return photoArray.count
@@ -215,7 +215,7 @@ extension  ViewController : UICollectionViewDataSource, UICollectionViewDelegate
     
 }
 
-extension ViewController : ZoomingViewController {
+extension PhotosVC : ZoomingViewController {
     
     func zoomingBackgroundView(for transition: ZoomTransitioningDelegate) -> UIView? {
         return nil

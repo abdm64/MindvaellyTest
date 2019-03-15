@@ -10,10 +10,24 @@ import UIKit
 
 class WebVC: UIViewController {
 
+    @IBOutlet weak var webView: UIWebView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        loadWebdata(url: "https://www.example.com/document.pdf")
+    }
+    func loadWebdata(url: String){
+        
+        guard let urlTarget  = URL(string: url) else {return}
+        let request = URLRequest(url: urlTarget)
+        
+        webView.loadRequest(request)
+        
+        
+        
+        
     }
     
 

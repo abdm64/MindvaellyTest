@@ -13,7 +13,7 @@
         <!--Photos-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="testHttpreq" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="PhotosVC" customModule="testHttpreq" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -108,22 +108,47 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="676" y="15"/>
+            <point key="canvasLocation" x="650" y="82"/>
         </scene>
-        <!--View Controller-->
+        <!--WebVC-->
         <scene sceneID="eZJ-Xe-PCG">
             <objects>
-                <viewController id="MW7-b6-wP8" sceneMemberID="viewController">
+                <viewController id="MW7-b6-wP8" customClass="WebVC" customModule="testHttpreq" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vDR-7e-SWp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gG8-yU-qL3">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
+                                <color key="backgroundColor" red="0.35686274509999999" green="0.62352941179999999" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="76" id="4XG-Lt-88I"/>
+                                </constraints>
+                            </view>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gtr-o0-DfG">
+                                <rect key="frame" x="0.0" y="76" width="375" height="591"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gG8-yU-qL3" firstAttribute="leading" secondItem="SF2-3S-723" secondAttribute="leading" id="Bho-NU-8yu"/>
+                            <constraint firstItem="Gtr-o0-DfG" firstAttribute="leading" secondItem="SF2-3S-723" secondAttribute="leading" id="P0V-Aa-47p"/>
+                            <constraint firstItem="Gtr-o0-DfG" firstAttribute="trailing" secondItem="SF2-3S-723" secondAttribute="trailing" id="RiT-jT-akB"/>
+                            <constraint firstItem="gG8-yU-qL3" firstAttribute="top" secondItem="vDR-7e-SWp" secondAttribute="top" id="W1P-fU-hBe"/>
+                            <constraint firstItem="Gtr-o0-DfG" firstAttribute="top" secondItem="gG8-yU-qL3" secondAttribute="bottom" id="bHq-bV-GHG"/>
+                            <constraint firstItem="gG8-yU-qL3" firstAttribute="trailing" secondItem="SF2-3S-723" secondAttribute="trailing" id="oF1-Ow-hIL"/>
+                            <constraint firstItem="SF2-3S-723" firstAttribute="bottom" secondItem="Gtr-o0-DfG" secondAttribute="bottom" id="zls-CC-D6e"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="SF2-3S-723"/>
                     </view>
+                    <connections>
+                        <outlet property="webView" destination="Gtr-o0-DfG" id="OO3-Bd-sMc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Frg-83-JKH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="833" y="815"/>
+            <point key="canvasLocation" x="648.79999999999995" y="852.3238380809596"/>
         </scene>
         <!--Image DetaisVC-->
         <scene sceneID="Fs1-HC-OoC">
