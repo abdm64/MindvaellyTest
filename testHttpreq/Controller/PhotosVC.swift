@@ -13,7 +13,9 @@ import SDDownloadManager
 import SDWebImage
 
 
-
+protocol PassLinkDownloadDelegate {
+    func passUrldownload(url:String)
+}
 
 
 class PhotosVC : UIViewController {
@@ -28,6 +30,10 @@ class PhotosVC : UIViewController {
     var photoThumbnail: UIImage!
     var selectedIndexPath: IndexPath!
     var alertIndexPath : IndexPath!
+    var urlPassedToWebVC : String!
+    
+    var dewnladdelegate: PassLinkDownloadDelegate?
+    
     
     
     
@@ -42,6 +48,7 @@ class PhotosVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
         
         self.retruveDatafromUrl(url: BASE_URL)
         
@@ -113,20 +120,24 @@ class PhotosVC : UIViewController {
         self.showAlert(num: sender.tag)
     }
     func showAlert(num : Int){
+        let indexPath = IndexPath(row: num, section: 0)
+        let cell = self.collectionView.cellForItem(at: indexPath) as! PhotoCell
+        
         let alert = UIAlertController(title: "preform action for the url", message: "we can preforem action for the photo", preferredStyle: .actionSheet)
         let cancelDownloadAction = UIAlertAction(title: "Cancel download", style: .default) { (action) in
-            print("donload canceld")
+            print(self.photoArray[indexPath.row].regular)
             
             // cancel dowload image
-            let indexPath = IndexPath(row: num, section: 0)
             
-            let cell = self.collectionView.cellForItem(at: indexPath) as! PhotoCell
             cell.cancalDownloadImage(url: self.photoArray[indexPath.row].regular)
-            print(self.photoArray[indexPath.row].full)
+           
             
         }
-        let downloadInWebViewAction = UIAlertAction(title: "Download in the web", style: .default) { (action) in
-            print("open in the web")
+        let downloadInWebViewAction = UIAlertAction(title: "Open in the web", style: .default) { (action) in
+            self.urlPassedToWebVC = self.photoArray[indexPath.row].full
+            
+            self.performSegue(withIdentifier: "ToWebVC", sender: nil)
+            
             
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -147,6 +158,11 @@ class PhotosVC : UIViewController {
             navigationItem.backBarButtonItem = backItem
             imagedetailVC.passedImage = photoThumbnail
             
+            
+        }
+        if segue.identifier == "ToWebVC" {
+            let webVC = segue.destination as! WebVC
+            webVC.dowloadUrl = urlPassedToWebVC
             
         }
     }

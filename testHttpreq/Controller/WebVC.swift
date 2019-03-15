@@ -7,23 +7,30 @@
 //
 
 import UIKit
+import WebKit
+
 
 class WebVC: UIViewController {
 
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView: WKWebView!
+    
+    var dowloadUrl : String!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let url = dowloadUrl else {return}
+        
 
         // Do any additional setup after loading the view.
-        loadWebdata(url: "https://www.example.com/document.pdf")
+        loadWebdata(url: url)
     }
     func loadWebdata(url: String){
+        guard   let url = URL(string: url) else {return}
+        let request = URLRequest(url: url)
         
-        guard let urlTarget  = URL(string: url) else {return}
-        let request = URLRequest(url: urlTarget)
-        
-        webView.loadRequest(request)
+       webView.load(request)
         
         
         
@@ -40,5 +47,13 @@ class WebVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    @IBAction func dismiss(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
+
+    
+
+

@@ -103,7 +103,7 @@
                         <outlet property="activityIndicator" destination="TTb-fF-gBU" id="chK-nM-29R"/>
                         <outlet property="collectionView" destination="c9P-IB-yVO" id="D2C-jY-Dn2"/>
                         <segue destination="Wr3-79-BgC" kind="show" identifier="ShowImage" id="pgo-hY-PiN"/>
-                        <segue destination="MW7-b6-wP8" kind="showDetail" id="hj7-0A-tDN"/>
+                        <segue destination="MW7-b6-wP8" kind="showDetail" identifier="ToWebVC" id="hj7-0A-tDN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -113,37 +113,57 @@
         <!--WebVC-->
         <scene sceneID="eZJ-Xe-PCG">
             <objects>
-                <viewController id="MW7-b6-wP8" customClass="WebVC" customModule="testHttpreq" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="webVC" id="MW7-b6-wP8" customClass="WebVC" customModule="testHttpreq" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vDR-7e-SWp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gG8-yU-qL3">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obI-jb-xfa">
+                                        <rect key="frame" x="280" y="35" width="80" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="aqa-kp-fjW"/>
+                                            <constraint firstAttribute="height" constant="30" id="lqq-UD-0eo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="20"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="dismiss:" destination="MW7-b6-wP8" eventType="touchUpInside" id="IrA-Hg-bEH"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.35686274509999999" green="0.62352941179999999" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="76" id="4XG-Lt-88I"/>
+                                    <constraint firstItem="obI-jb-xfa" firstAttribute="top" secondItem="gG8-yU-qL3" secondAttribute="top" constant="35" id="BvV-Me-Mb8"/>
+                                    <constraint firstAttribute="trailing" secondItem="obI-jb-xfa" secondAttribute="trailing" constant="15" id="Jqz-OS-Zbw"/>
                                 </constraints>
                             </view>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gtr-o0-DfG">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9E2-8T-VP8">
                                 <rect key="frame" x="0.0" y="76" width="375" height="591"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gG8-yU-qL3" firstAttribute="leading" secondItem="SF2-3S-723" secondAttribute="leading" id="Bho-NU-8yu"/>
-                            <constraint firstItem="Gtr-o0-DfG" firstAttribute="leading" secondItem="SF2-3S-723" secondAttribute="leading" id="P0V-Aa-47p"/>
-                            <constraint firstItem="Gtr-o0-DfG" firstAttribute="trailing" secondItem="SF2-3S-723" secondAttribute="trailing" id="RiT-jT-akB"/>
+                            <constraint firstItem="SF2-3S-723" firstAttribute="trailing" secondItem="9E2-8T-VP8" secondAttribute="trailing" id="DZa-fq-EFv"/>
+                            <constraint firstItem="9E2-8T-VP8" firstAttribute="leading" secondItem="SF2-3S-723" secondAttribute="leading" id="KzB-w3-fYK"/>
                             <constraint firstItem="gG8-yU-qL3" firstAttribute="top" secondItem="vDR-7e-SWp" secondAttribute="top" id="W1P-fU-hBe"/>
-                            <constraint firstItem="Gtr-o0-DfG" firstAttribute="top" secondItem="gG8-yU-qL3" secondAttribute="bottom" id="bHq-bV-GHG"/>
+                            <constraint firstItem="9E2-8T-VP8" firstAttribute="top" secondItem="gG8-yU-qL3" secondAttribute="bottom" id="jJF-dB-xIi"/>
                             <constraint firstItem="gG8-yU-qL3" firstAttribute="trailing" secondItem="SF2-3S-723" secondAttribute="trailing" id="oF1-Ow-hIL"/>
-                            <constraint firstItem="SF2-3S-723" firstAttribute="bottom" secondItem="Gtr-o0-DfG" secondAttribute="bottom" id="zls-CC-D6e"/>
+                            <constraint firstItem="SF2-3S-723" firstAttribute="bottom" secondItem="9E2-8T-VP8" secondAttribute="bottom" id="zTV-zb-vIh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SF2-3S-723"/>
                     </view>
                     <connections>
-                        <outlet property="webView" destination="Gtr-o0-DfG" id="OO3-Bd-sMc"/>
+                        <outlet property="webView" destination="9E2-8T-VP8" id="5kV-SY-Aqn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Frg-83-JKH" userLabel="First Responder" sceneMemberID="firstResponder"/>
