@@ -69,7 +69,7 @@ class PhotosVC : UIViewController {
     }
     //Mark UI
     @objc func refreshView(){
-        print("refresh")
+       
         self.retruveDatafromUrl(url: BASE_URL)
          self.collectionView.reloadData()
         //self.removeEmptyCell()
@@ -137,30 +137,49 @@ class PhotosVC : UIViewController {
         
     }
     @objc func takeAction(sender : UIButton){
-        print(sender.tag)
-       //
+        
+       //take the sender.tag witch is btw the indexPath.row of the selected cell
         self.showAlert(num: sender.tag)
     }
     func showAlert(num : Int){
         let indexPath = IndexPath(row: num, section: 0)
         let cell = self.collectionView.cellForItem(at: indexPath) as! PhotoCell
         
-        let alert = UIAlertController(title: "preform action for the url", message: "we can preforem action for the photo", preferredStyle: .actionSheet)
-        let cancelDownloadAction = UIAlertAction(title: "cancel download", style: .default) { (action) in
-            cell.imageView.image = UIImage(named: "PlaceHolder-1")
+        let alert = UIAlertController(title: "preform action for the photo ", message: "we can preforem action for the photo", preferredStyle: .actionSheet)
+        let cancelDownloadAction = UIAlertAction(title: "Cancel Download", style: .default) { (action) in
+            
+            if  cell.imageView.image == UIImage(named: "PlaceHolder-1") {
+                Utilities.alert(title: "err", message:" is already canceled")
+            } else {
+                cell.imageView.image = UIImage(named: "PlaceHolder-1")
+            }
           
+            
+        }
+        let resumeDownloadAction = UIAlertAction(title: "Resume Download", style: .default) { (action) in
+            
+            if  cell.imageView.image == UIImage(named: "PlaceHolder-1") {
+                 cell.imageView.sd_setImage(with:URL(string: self.photoArray[indexPath.item].regular ), placeholderImage:  nil, options: [.cacheMemoryOnly, .progressiveDownload], completed: nil)
+            } else {
+                Utilities.alert(title: "err", message:" is already downloaded")
+            }
+            
             
         }
         
         let downloadInWebViewAction = UIAlertAction(title: "Open in the web", style: .default) { (action) in
+            // Message from developer
+            /*this action allow us to open the url in web in case the url is for a pdf or zip file  in it */
             self.urlPassedToWebVC = self.photoArray[indexPath.row].full
             
-            self.performSegue(withIdentifier: "ToWebVC", sender: nil)
+            self.performSegue(withIdentifier: self.mystoryboard.segueToWebVC, sender: nil)
             
             
         }
+        // to dismiss the alert
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelDownloadAction)
+        alert.addAction(resumeDownloadAction)
         alert.addAction(downloadInWebViewAction)
         alert.addAction(cancel)
        UIApplication.shared.delegate!.window!!.rootViewController!.present(alert, animated: true, completion: nil)
@@ -229,8 +248,9 @@ extension  PhotosVC : UICollectionViewDataSource, UICollectionViewDelegate{
         } else {
               cell.imageView.sd_setImage(with:URL(string: photoArray[indexPath.item].regular ), placeholderImage:  nil, options: [.cacheMemoryOnly, .progressiveDownload], completed: nil)
         }
-      
-      // cell.downloadImage(withUrlString: photoArray[indexPath.item].full)
+        /* you can notice i used SDWebImage as default image downloader because it's so simple and efficase to download image from internet but i can use my download image extention for exemple : */
+      // DOWNLOAD IMAGE WITHOUT SDWEBimage
+      //cell.imageView.downloadImage(withUrlString:photoArray[indexPath.item].regular )
     
         cell.cellButton.tag = indexPath.item
         cell.cellButton.addTarget(self, action: #selector(self.takeAction), for: .touchUpInside)
@@ -250,9 +270,11 @@ extension  PhotosVC : UICollectionViewDataSource, UICollectionViewDelegate{
         
         self.selectedIndexPath = indexPath
         
-
+// Message from developer
+        /*i use segue to pass data between the two VC because is not a big project when i need to use notification observer */
+        
     
-        performSegue(withIdentifier: SHOW_IMAGE_SEGUE, sender: photoThumbnail)
+        performSegue(withIdentifier: mystoryboard.segueToPhotoVC, sender: photoThumbnail)
     }
 
     
@@ -264,6 +286,8 @@ extension  PhotosVC : UICollectionViewDataSource, UICollectionViewDelegate{
 }
 
 extension PhotosVC : ZoomingViewController {
+    // Message from developer
+    /* i found  "ZoomTransitioningDelegate" on github created by Duc Tran  the class allow us to add a cool animation between our UICollectionView and PhotoVC simple to use "big thanks to Duc Tran"  */
     
     func zoomingBackgroundView(for transition: ZoomTransitioningDelegate) -> UIView? {
         return nil

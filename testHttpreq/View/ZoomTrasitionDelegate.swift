@@ -1,9 +1,9 @@
 //
-//  ZoomTrasitionDelegate.swift
-//  testHttpreq
+//  ZoomTransitioningDelegate.swift
+// 
 //
-//  Created by ABD on 12/03/2019.
-//  Copyright © 2019 ABD. All rights reserved.
+//  Created by Duc Tran on 2/22/17.
+//  Copyright © 2017 Developers Academy. All rights reserved.
 //
 
 import UIKit

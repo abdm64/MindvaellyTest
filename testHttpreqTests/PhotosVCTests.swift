@@ -44,7 +44,7 @@ class PhotosVCTests: XCTestCase {
                     XCTAssertEqual(image.imageOrientation, expectedImageOriontation)
                 }
                 }.resume()
-        //    self.waitForExpectations(timeout: 10, handler: nil)
+       
 
             
         }
