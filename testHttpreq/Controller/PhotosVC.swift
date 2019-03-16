@@ -172,6 +172,7 @@ class PhotosVC : UIViewController {
         alert.addAction(downloadInWebViewAction)
         alert.addAction(cancel)
         //present Alert View to the user
+        addActionSheetForiPad(actionSheet: alert)
         self.present(alert, animated: true, completion: nil)
         
     }
