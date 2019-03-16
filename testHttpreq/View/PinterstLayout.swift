@@ -42,8 +42,9 @@ class PinterestLayout: UICollectionViewLayout {
     
     //2. Configurable properties
     fileprivate var numberOfColumns : Int {
+        // my change to support 4 colums on ipad
         if  DeviceType.IS_IPAD_PRO || DeviceType.IS_IPAD {
-            return 3
+            return 4
         } else {
             
             return 2

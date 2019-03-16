@@ -13,7 +13,7 @@
         <!--Photos-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="PhotosVC" customModule="testHttpreq" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhotosVC" id="BYZ-38-t0r" customClass="PhotosVC" customModule="testHttpreq" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,13 +34,6 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yha-Lo-rYz">
                                                     <rect key="frame" x="0.0" y="0.0" width="325" height="373"/>
                                                 </imageView>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6X7-4P-3sZ">
-                                                    <rect key="frame" x="144" y="168" width="37" height="37"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="37" id="2az-XF-oA8"/>
-                                                        <constraint firstAttribute="width" constant="37" id="5my-bR-Ia2"/>
-                                                    </constraints>
-                                                </activityIndicatorView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVH-Wu-f4u" customClass="CellButton" customModule="testHttpreq" customModuleProvider="target">
                                                     <rect key="frame" x="10" y="333" width="30" height="30"/>
                                                     <constraints>
@@ -54,9 +47,7 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Yha-Lo-rYz" secondAttribute="trailing" id="G0m-8O-VfP"/>
                                             <constraint firstItem="Yha-Lo-rYz" firstAttribute="leading" secondItem="7sK-LO-D5K" secondAttribute="leading" id="amK-67-EMV"/>
-                                            <constraint firstItem="6X7-4P-3sZ" firstAttribute="centerY" secondItem="7sK-LO-D5K" secondAttribute="centerY" id="ggi-Mp-MYA"/>
                                             <constraint firstItem="QVH-Wu-f4u" firstAttribute="leading" secondItem="7sK-LO-D5K" secondAttribute="leading" constant="10" id="nHk-Ga-6cg"/>
-                                            <constraint firstItem="6X7-4P-3sZ" firstAttribute="centerX" secondItem="7sK-LO-D5K" secondAttribute="centerX" id="nXA-03-juY"/>
                                             <constraint firstAttribute="bottom" secondItem="QVH-Wu-f4u" secondAttribute="bottom" constant="10" id="nqK-RP-y7B"/>
                                             <constraint firstItem="Yha-Lo-rYz" firstAttribute="top" secondItem="7sK-LO-D5K" secondAttribute="top" id="t5g-H7-yGB"/>
                                             <constraint firstAttribute="bottom" secondItem="Yha-Lo-rYz" secondAttribute="bottom" id="zCQ-5P-D05"/>
@@ -65,7 +56,6 @@
                                         <connections>
                                             <outlet property="cellButton" destination="QVH-Wu-f4u" id="UTo-hv-EeC"/>
                                             <outlet property="imageView" destination="Yha-Lo-rYz" id="niY-nb-DN2"/>
-                                            <outlet property="spinner" destination="6X7-4P-3sZ" id="zIA-Gd-5Ri"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -89,11 +79,6 @@
                             <constraint firstItem="TTb-fF-gBU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eWd-kp-icK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="TTb-fF-gBU"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Photos" largeTitleDisplayMode="always" id="rL9-at-tNc"/>
                     <userDefinedRuntimeAttributes>
@@ -113,7 +98,7 @@
         <!--WebVC-->
         <scene sceneID="eZJ-Xe-PCG">
             <objects>
-                <viewController storyboardIdentifier="webVC" id="MW7-b6-wP8" customClass="WebVC" customModule="testHttpreq" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebVC" id="MW7-b6-wP8" customClass="WebVC" customModule="testHttpreq" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vDR-7e-SWp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

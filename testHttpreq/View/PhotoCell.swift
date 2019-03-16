@@ -10,36 +10,36 @@ import UIKit
 import SDWebImage
 
 
-
+var imageCache: NSCache<AnyObject, AnyObject> = NSCache()
 
 class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var imageView:  UIImageView!
     
    
     @IBOutlet weak var cellButton: CellButton!
+    //
     
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    var idImage : String!
+    
  
-    var canceled = false
     
     override func awakeFromNib() {
         setView()
         
     }
-    
+    // Message from Developer
+    /* here a my function to download image from url */
     
     
     func downloadImage(withUrlString urlString: String) {
-        spinner.style = .whiteLarge
-        spinner.hidesWhenStopped = true
-        spinner.startAnimating()
+       
         
-         canceled = true
+         
         guard let url = URL(string: urlString) else {return}
         
         if let imageFromCache = imageCache.object(forKey: url.absoluteString as AnyObject) as? UIImage {
             self.imageView.image = imageFromCache
-             self.spinner.stopAnimating()
+            
             
             return
         }
@@ -54,7 +54,7 @@ class PhotoCell: UICollectionViewCell {
             DispatchQueue.main.async {
                 if  let imageToCache = UIImage(data: data!) {
                     self.imageView.image = imageToCache
-                    self.spinner.stopAnimating()
+                    
                     imageCache.setObject(imageToCache, forKey: url.absoluteString as AnyObject)
                 }
                 
@@ -79,7 +79,7 @@ class PhotoCell: UICollectionViewCell {
             DispatchQueue.main.async {
                 if  let imageToCache = UIImage(data: data!) {
                     self.imageView.image = imageToCache
-                    self.spinner.stopAnimating()
+                   
                     imageCache.setObject(imageToCache, forKey: url.absoluteString as AnyObject)
                 }
                 
@@ -89,6 +89,8 @@ class PhotoCell: UICollectionViewCell {
         }).cancel()
         
         }
+    // Message from developer
+    /*setup the view of the cell and make it looks better */
     func setView(){
         self.layer.backgroundColor = UIColor.lightGray.cgColor
         self.layer.cornerRadius = 10
@@ -101,9 +103,7 @@ class PhotoCell: UICollectionViewCell {
     
     
     
-    
-    
-    
+
     
     
     
@@ -111,4 +111,4 @@ class PhotoCell: UICollectionViewCell {
 
     
 
-var imageCache: NSCache<AnyObject, AnyObject> = NSCache()
+

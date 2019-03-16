@@ -11,6 +11,9 @@
 		45277F0B22369AB300DABDD8 /* PinterstLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45277F0A22369AB300DABDD8 /* PinterstLayout.swift */; };
 		45277F0D2236B16D00DABDD8 /* DownloadClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45277F0C2236B16D00DABDD8 /* DownloadClient.swift */; };
 		45277F132236BE0500DABDD8 /* Contants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45277F122236BE0500DABDD8 /* Contants.swift */; };
+		452B9B74223D722E008CBE59 /* testHttpreqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452B9B73223D722E008CBE59 /* testHttpreqTests.swift */; };
+		452B9B7C223D72D9008CBE59 /* PhotosVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452B9B7B223D72D9008CBE59 /* PhotosVCTests.swift */; };
+		452B9B7E223D9541008CBE59 /* ModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452B9B7D223D9541008CBE59 /* ModelTest.swift */; };
 		4532B1FE223597750076A2DB /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4532B1FD223597750076A2DB /* Photo.swift */; };
 		454D14B022346A24006ACCE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454D14AF22346A24006ACCE5 /* AppDelegate.swift */; };
 		454D14B222346A25006ACCE5 /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454D14B122346A25006ACCE5 /* PhotosVC.swift */; };
@@ -27,11 +30,26 @@
 		8FACA3D939F78193CB4EC432 /* Pods_testHttpreq.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8DCAA662EA49896465F1A8 /* Pods_testHttpreq.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		452B9B76223D722F008CBE59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 454D14A422346A22006ACCE5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 454D14AB22346A22006ACCE5;
+			remoteInfo = testHttpreq;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		45277EF722368F6A00DABDD8 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		45277F0A22369AB300DABDD8 /* PinterstLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterstLayout.swift; sourceTree = "<group>"; };
 		45277F0C2236B16D00DABDD8 /* DownloadClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadClient.swift; sourceTree = "<group>"; };
 		45277F122236BE0500DABDD8 /* Contants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contants.swift; sourceTree = "<group>"; };
+		452B9B71223D722E008CBE59 /* testHttpreqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testHttpreqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		452B9B73223D722E008CBE59 /* testHttpreqTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testHttpreqTests.swift; sourceTree = "<group>"; };
+		452B9B75223D722F008CBE59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		452B9B7B223D72D9008CBE59 /* PhotosVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosVCTests.swift; sourceTree = "<group>"; };
+		452B9B7D223D9541008CBE59 /* ModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTest.swift; sourceTree = "<group>"; };
 		4532B1FD223597750076A2DB /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		454D14AC22346A23006ACCE5 /* testHttpreq.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testHttpreq.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		454D14AF22346A24006ACCE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +71,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		452B9B6E223D722E008CBE59 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		454D14A922346A22006ACCE5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -105,10 +130,22 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		452B9B72223D722E008CBE59 /* testHttpreqTests */ = {
+			isa = PBXGroup;
+			children = (
+				452B9B73223D722E008CBE59 /* testHttpreqTests.swift */,
+				452B9B75223D722F008CBE59 /* Info.plist */,
+				452B9B7B223D72D9008CBE59 /* PhotosVCTests.swift */,
+				452B9B7D223D9541008CBE59 /* ModelTest.swift */,
+			);
+			path = testHttpreqTests;
+			sourceTree = "<group>";
+		};
 		454D14A322346A22006ACCE5 = {
 			isa = PBXGroup;
 			children = (
 				454D14AE22346A23006ACCE5 /* testHttpreq */,
+				452B9B72223D722E008CBE59 /* testHttpreqTests */,
 				454D14AD22346A23006ACCE5 /* Products */,
 				BCB8A431E0905B3861B40C45 /* Pods */,
 				674E4AB5938DDFA73BEC50A4 /* Frameworks */,
@@ -119,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				454D14AC22346A23006ACCE5 /* testHttpreq.app */,
+				452B9B71223D722E008CBE59 /* testHttpreqTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,6 +197,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		452B9B70223D722E008CBE59 /* testHttpreqTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 452B9B78223D722F008CBE59 /* Build configuration list for PBXNativeTarget "testHttpreqTests" */;
+			buildPhases = (
+				452B9B6D223D722E008CBE59 /* Sources */,
+				452B9B6E223D722E008CBE59 /* Frameworks */,
+				452B9B6F223D722E008CBE59 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				452B9B77223D722F008CBE59 /* PBXTargetDependency */,
+			);
+			name = testHttpreqTests;
+			productName = testHttpreqTests;
+			productReference = 452B9B71223D722E008CBE59 /* testHttpreqTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		454D14AB22346A22006ACCE5 /* testHttpreq */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 454D14BE22346A46006ACCE5 /* Build configuration list for PBXNativeTarget "testHttpreq" */;
@@ -188,6 +244,10 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = ABD;
 				TargetAttributes = {
+					452B9B70223D722E008CBE59 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 454D14AB22346A22006ACCE5;
+					};
 					454D14AB22346A22006ACCE5 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -207,11 +267,19 @@
 			projectRoot = "";
 			targets = (
 				454D14AB22346A22006ACCE5 /* testHttpreq */,
+				452B9B70223D722E008CBE59 /* testHttpreqTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		452B9B6F223D722E008CBE59 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		454D14AA22346A22006ACCE5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -270,6 +338,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		452B9B6D223D722E008CBE59 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				452B9B7E223D9541008CBE59 /* ModelTest.swift in Sources */,
+				452B9B74223D722E008CBE59 /* testHttpreqTests.swift in Sources */,
+				452B9B7C223D72D9008CBE59 /* PhotosVCTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		454D14A822346A22006ACCE5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -293,6 +371,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		452B9B77223D722F008CBE59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 454D14AB22346A22006ACCE5 /* testHttpreq */;
+			targetProxy = 452B9B76223D722F008CBE59 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		454D14B322346A25006ACCE5 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -313,6 +399,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		452B9B79223D722F008CBE59 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UPQQD4DP7M;
+				INFOPLIST_FILE = testHttpreqTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ABD64.testHttpreqTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/testHttpreq.app/testHttpreq";
+			};
+			name = Debug;
+		};
+		452B9B7A223D722F008CBE59 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UPQQD4DP7M;
+				INFOPLIST_FILE = testHttpreqTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ABD64.testHttpreqTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/testHttpreq.app/testHttpreq";
+			};
+			name = Release;
+		};
 		454D14BC22346A46006ACCE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -470,6 +596,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		452B9B78223D722F008CBE59 /* Build configuration list for PBXNativeTarget "testHttpreqTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				452B9B79223D722F008CBE59 /* Debug */,
+				452B9B7A223D722F008CBE59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		454D14A722346A22006ACCE5 /* Build configuration list for PBXProject "testHttpreq" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

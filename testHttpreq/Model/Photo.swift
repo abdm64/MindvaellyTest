@@ -29,3 +29,12 @@ struct Photo {
 enum URLS {
     case raw, full, regular, small, thumb
 }
+
+struct MYStoryboard {
+    let photoCell = "PhotoCell"
+    let photoVC = "imageDetaisVC"
+    let webVC = "WebVC"
+    let segueToPhotoVC = "ShowImage"
+    let segueToWebVC = "ToWebVC"
+    let photosVC = "PhotosVC"
+}
