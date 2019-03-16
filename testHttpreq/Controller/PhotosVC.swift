@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-import SDDownloadManager
 import SDWebImage
 
 
@@ -17,11 +16,11 @@ import SDWebImage
 
 
 class PhotosVC : UIViewController {
-    // Mark : Outltes
+    // Outltes
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    // Mark : Var
+    //  Var
     
     
     var isLoading: Bool = false
@@ -31,18 +30,7 @@ class PhotosVC : UIViewController {
     var urlPassedToWebVC : String!
     let mystoryboard =  MYStoryboard()
     let refresh = UIRefreshControl()
-    let iamgeHolder = UIImage(named: "PlaceHolder-1")
-    
-    
-   
-    
-    
-    
-    
-    
-    
-  
-   
+    let imageHolder = UIImage(named: "PlaceHolder-1")
     var photoArray = [Photo]()
 
    
@@ -53,7 +41,7 @@ class PhotosVC : UIViewController {
         
         self.retruveDatafromUrl(url: BASE_URL)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.activityIndicator.stopAnimating()
              self.collectionView.reloadData()
             
@@ -127,9 +115,9 @@ class PhotosVC : UIViewController {
         let smallUrl = jsonData[i]["urls"]["small"].stringValue
         let thumbUrl =  jsonData[i]["urls"]["thumb"].stringValue
         let height = jsonData[i]["height"].intValue
-        // after get the data we need from url we save it in array from photo to use it later to download image from the web 
+        // after get the data from the url  we save it in array from photo to use it later to download image from the web
         let url = Photo(id: id, raw: rowUrl, full: fullUrl, regular: regularUrl, small: smallUrl, thumb: thumbUrl, height: height)
-        
+        // save it to the array
         
         self.photoArray.append(url)
     
@@ -148,17 +136,17 @@ class PhotosVC : UIViewController {
         let alert = UIAlertController(title: "preform action for the photo ", message: "we can preforem action for the photo", preferredStyle: .actionSheet)
         let cancelDownloadAction = UIAlertAction(title: "Cancel Download", style: .default) { (action) in
             
-            if  cell.imageView.image == UIImage(named: "PlaceHolder-1") {
+            if  cell.imageView.image == self.imageHolder {
                 Utilities.alert(title: "err", message:" is already canceled")
             } else {
-                cell.imageView.image = UIImage(named: "PlaceHolder-1")
+                cell.imageView.image = self.imageHolder
             }
           
             
         }
         let resumeDownloadAction = UIAlertAction(title: "Resume Download", style: .default) { (action) in
             
-            if  cell.imageView.image == UIImage(named: "PlaceHolder-1") {
+            if  cell.imageView.image == self.imageHolder {
                  cell.imageView.sd_setImage(with:URL(string: self.photoArray[indexPath.item].regular ), placeholderImage:  nil, options: [.cacheMemoryOnly, .progressiveDownload], completed: nil)
             } else {
                 Utilities.alert(title: "err", message:" is already downloaded")
@@ -178,11 +166,13 @@ class PhotosVC : UIViewController {
         }
         // to dismiss the alert
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        //Add the actions to alert
         alert.addAction(cancelDownloadAction)
         alert.addAction(resumeDownloadAction)
         alert.addAction(downloadInWebViewAction)
         alert.addAction(cancel)
-       UIApplication.shared.delegate!.window!!.rootViewController!.present(alert, animated: true, completion: nil)
+        //present Alert View to the user
+        self.present(alert, animated: true, completion: nil)
         
     }
     
@@ -190,6 +180,7 @@ class PhotosVC : UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
+        // Pass the data between the VC using the segue
         if segue.identifier ==  mystoryboard.segueToPhotoVC {
         
             let imagedetailVC = segue.destination as! ImageDetaisVC
@@ -243,16 +234,19 @@ extension  PhotosVC : UICollectionViewDataSource, UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mystoryboard.photoCell, for: indexPath) as! PhotoCell
         
-        if cell.imageView.image == iamgeHolder {
-            cell.imageView.image = iamgeHolder
+        if cell.imageView.image == imageHolder {
+            cell.imageView.image = imageHolder
         } else {
               cell.imageView.sd_setImage(with:URL(string: photoArray[indexPath.item].regular ), placeholderImage:  nil, options: [.cacheMemoryOnly, .progressiveDownload], completed: nil)
         }
         /* you can notice i used SDWebImage as default image downloader because it's so simple and efficase to download image from internet but i can use my download image extention for exemple : */
       // DOWNLOAD IMAGE WITHOUT SDWEBimage
       //cell.imageView.downloadImage(withUrlString:photoArray[indexPath.item].regular )
+        
+        // deal with the button on the cell by saving the tag of the button
     
         cell.cellButton.tag = indexPath.item
+        // add the action to the button in the cell
         cell.cellButton.addTarget(self, action: #selector(self.takeAction), for: .touchUpInside)
         
         
