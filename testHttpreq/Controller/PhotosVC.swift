@@ -130,13 +130,16 @@ class PhotosVC : UIViewController {
         self.showAlert(num: sender.tag)
     }
     func showAlert(num : Int){
+        /*convert the sender.tag to indexPath to identif the selected cell */
         let indexPath = IndexPath(row: num, section: 0)
         let cell = self.collectionView.cellForItem(at: indexPath) as! PhotoCell
         
         let alert = UIAlertController(title: "preform action for the photo ", message: "we can preforem action for the photo", preferredStyle: .actionSheet)
+        // Add Cancel download action
         let cancelDownloadAction = UIAlertAction(title: "Cancel Download", style: .default) { (action) in
             
             if  cell.imageView.image == self.imageHolder {
+                //message for the user  presented by AlertView
                 Utilities.alert(title: "err", message:" is already canceled")
             } else {
                 cell.imageView.image = self.imageHolder
@@ -144,22 +147,25 @@ class PhotosVC : UIViewController {
           
             
         }
+         // Add resume  download action
         let resumeDownloadAction = UIAlertAction(title: "Resume Download", style: .default) { (action) in
             
             if  cell.imageView.image == self.imageHolder {
                  cell.imageView.sd_setImage(with:URL(string: self.photoArray[indexPath.item].regular ), placeholderImage:  nil, options: [.cacheMemoryOnly, .progressiveDownload], completed: nil)
             } else {
+                //message for the user  presented by AlertView
                 Utilities.alert(title: "err", message:" is already downloaded")
             }
             
             
         }
-        
+        // Add open the link in the web action
         let downloadInWebViewAction = UIAlertAction(title: "Open in the web", style: .default) { (action) in
             // Message from developer
             /*this action allow us to open the url in web in case the url is for a pdf or zip file  in it */
             self.urlPassedToWebVC = self.photoArray[indexPath.row].full
             
+            // preforme the segue to move to webViewVC
             self.performSegue(withIdentifier: self.mystoryboard.segueToWebVC, sender: nil)
             
             
@@ -171,13 +177,14 @@ class PhotosVC : UIViewController {
         alert.addAction(resumeDownloadAction)
         alert.addAction(downloadInWebViewAction)
         alert.addAction(cancel)
-        //present Alert View to the user
+        //support ipad AlertSheet to presented center of the ipad screen you can check the function in Utilities file
         addActionSheetForiPad(actionSheet: alert)
+         //present Alert View to the user
         self.present(alert, animated: true, completion: nil)
         
     }
     
-    //Prepare for SEGUE
+    //Configure the segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
@@ -207,10 +214,12 @@ class PhotosVC : UIViewController {
 
 extension PhotosVC : PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
+        // Message from developer
+        // in this func we need the height of the cell so we can use ou PhotoArray to get the height of the photo ; and because the height of the full reselution of the photo is so big we multiply the height of the photo we get to The factor 0.2 to make our user expirence smooth factor = 0.2
         let height : CGFloat = CGFloat(photoArray[indexPath.item].height)
         // Messege from developer
         
-        /* i use Pinterestlayout from the wanderfull ray wendlich and do a change a little bit of code to support ipad ( 4 columnt in ipad instad of 2 culumt on iphone devices by using the class DeviceType you can check my modificationn i do som mark*/
+        /* i use Pinterestlayout from the wonderful raywenderlich team  and  i do  little bit of change  to support ipad ( 4 columns in ipad instad of 2 culums on iphone devices by using the class DeviceType; you can check my modificationn in line  45 in Pinterestlayout file  */
         // end of message
     
         return height * 0.2
@@ -228,7 +237,7 @@ extension PhotosVC : PinterestLayoutDelegate {
 
 extension  PhotosVC : UICollectionViewDataSource, UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        // return the number of items In  section  determined by the  number of element in the photoArray
         return photoArray.count
     }
     
@@ -240,15 +249,17 @@ extension  PhotosVC : UICollectionViewDataSource, UICollectionViewDelegate{
         } else {
               cell.imageView.sd_setImage(with:URL(string: photoArray[indexPath.item].regular ), placeholderImage:  nil, options: [.cacheMemoryOnly, .progressiveDownload], completed: nil)
         }
-        /* you can notice i used SDWebImage as default image downloader because it's so simple and efficase to download image from internet but i can use my download image extention for exemple : */
+        /* you can notice i used SDWebImage as default image downloader because it's so simple and efficase to download image from internet but i can use my downloader image extention for exemple : */
       // DOWNLOAD IMAGE WITHOUT SDWEBimage
       //cell.imageView.downloadImage(withUrlString:photoArray[indexPath.item].regular )
         
         // deal with the button on the cell by saving the tag of the button
     
-        cell.cellButton.tag = indexPath.item
+        cell.cellButton.tag = indexPath.row
         // add the action to the button in the cell
         cell.cellButton.addTarget(self, action: #selector(self.takeAction), for: .touchUpInside)
+        // Message from developer
+        /*the takeAction func is func allow us take action for the selected cell ,action like cancel download or resume dowload presented by UIAlertView (type of sheetAlerView)  we can choose the right selected cell by passing the sender.tag witch is BTW is our needed indexPath.row */
         
         
         
