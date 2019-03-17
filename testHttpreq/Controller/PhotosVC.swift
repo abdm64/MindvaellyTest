@@ -32,53 +32,62 @@ class PhotosVC : UIViewController {
     let refresh = UIRefreshControl()
     let imageHolder = UIImage(named: "PlaceHolder-1")
     var photoArray = [Photo]()
+    var photoArrayTest = [Photo]()
 
    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        // call the func retruveDatafromUrl(url: BASE_URL) using the  BASE_URL (the url send it to me via email)
+       self.retruveDatafromUrl(url: BASE_URL)
         
-        self.retruveDatafromUrl(url: BASE_URL)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        /*in all the networking operation we expected  some delay in case internet connection slow or somthing so i add DispatchQueue.main.asyncAfter(deadline: .now() + 1) to ensure that all data was downloaded and make smooth user experience */
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            
             self.activityIndicator.stopAnimating()
              self.collectionView.reloadData()
             
+            
         }
+        // add func pullTorefresh action to our view
         self.pullTorefresh()
        // setup the delegate
-        
-        if let layout = collectionView.collectionViewLayout as? PinterestLayout {
-            layout.delegate = self
+        if collectionView != nil {
+            if let layout = collectionView.collectionViewLayout as? PinterestLayout {
+                layout.delegate = self
+            }
+            // update the UI
+            collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
-       // update the UI
-        collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
     }
     //Mark UI
     @objc func refreshView(){
-       
+       // we use refreshView func to relead for our collectionView and get more data from internet ("our url")
         self.retruveDatafromUrl(url: BASE_URL)
          self.collectionView.reloadData()
-        //self.removeEmptyCell()
+       
         refresh.endRefreshing()
     }
     func pullTorefresh(){
+         //add Pull to referesh action to our collectionView
         refresh.tintColor = #colorLiteral(red: 0.3568627451, green: 0.6235294118, blue: 0.7960784314, alpha: 1)
-        self.collectionView.alwaysBounceVertical = true
-        refresh.addTarget(self, action: #selector(self.refreshView), for: .valueChanged)
-        self.collectionView.addSubview(refresh)
-    }
-    func removeEmptyCell(){
-       // let cell = self.collectionView.cellForItem(at: [2,0]) as! PhotoCell
-        let indexPath = IndexPath(row: 2, section: 0)
-        self.collectionView.deleteItems(at: [indexPath])
-    }
+        if collectionView != nil {
+            self.collectionView.alwaysBounceVertical = true
+            // we use refreshView func to relead for our collectionView and get more data from internet ("our url")
+            refresh.addTarget(self, action: #selector(self.refreshView), for: .valueChanged)
+            
+            self.collectionView.addSubview(refresh)
+
+        }
+            }
     
+   
     
     func retruveDatafromUrl(url : String) {
         
-        
+        // this func allow us retrive the Json data from the url
              let url = URL(string: url)
         
         URLSession.shared.dataTask(with: url!) { (data, response, err) in
@@ -86,8 +95,9 @@ class PhotosVC : UIViewController {
                     guard let data = data else {return}
             do {
                     let jsonData = try JSON(data : data)
+                // in this step we take the data retrive from the given url and put in array of Photo by using our good friend SwiftyJSON
                 for i in 0...jsonData.count {
-                    
+                    // fill our photoArray with the needed type of data:  url id ....
                     self.retrivePhotoData(i: i, jsonData: jsonData)
                     
                 }
@@ -102,12 +112,12 @@ class PhotosVC : UIViewController {
             }
         
                 }.resume()
-         self.isLoading = false
+        
         
     }
     func retrivePhotoData(i: Int, jsonData : JSON){
         // Message from developer
-        /* i used SWiftyJSON to to ubstract the url because SwiftyJSON make our life a lot easer so no need to safe unrrwap for the value because swiftyjson do taht for us */
+        /* i used SWiftyJSON to deal with  the url because SwiftyJSON is powerful tools to deal with JSON  so no need to safe unrrwap for the value because swiftyjson is already  done taht for us */
         let id = jsonData[i]["id"].stringValue
         let rowUrl = jsonData[i]["urls"]["raw"].stringValue
         let fullUrl  = jsonData[i]["urls"]["full"].stringValue
@@ -132,8 +142,10 @@ class PhotosVC : UIViewController {
     func showAlert(num : Int){
         /*convert the sender.tag to indexPath to identif the selected cell */
         let indexPath = IndexPath(row: num, section: 0)
+        /*create the selected cell an cast it as PhotoCell witch it is our  custum view for the cell and pass the indexPath we created early*/
         let cell = self.collectionView.cellForItem(at: indexPath) as! PhotoCell
-        
+        /* create alert to preforme more than action for the photo you can notice that the style of the alert is .actionSheet ,
+         this exactly what we need .*/
         let alert = UIAlertController(title: "preform action for the photo ", message: "we can preforem action for the photo", preferredStyle: .actionSheet)
         // Add Cancel download action
         let cancelDownloadAction = UIAlertAction(title: "Cancel Download", style: .default) { (action) in

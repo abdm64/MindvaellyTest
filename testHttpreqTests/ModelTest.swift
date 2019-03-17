@@ -31,33 +31,47 @@ class ModelTest: XCTestCase {
     
         func testRegularUrl(){
             
+            perform(#selector(urlPhotocheck), with: nil, afterDelay: 1)
             
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                let urlRegular = self.sut.photoArray[1].regular
-                XCTAssertEqual(urlRegular, "https://images.unsplash.com/photo-1464550580740-b3f73fd373cb?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=899c346de4765f353375b8a5bd6cfc0e")
-                
-            }
+            
         }
+    func urlPhotocheck(){
+        let urlRegular = self.sut.photoArray[1].regular
+        let urlExpectation = self.expectation(description: "urlexpectation")
+        
+        urlExpectation.fulfill()
+        XCTAssertEqual(urlRegular, "https://images.unsplash.com/photo-1464550580740-b3f73fd373cb?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=899c346de4765f353375b8a5bd6cfc0e")
+        self.waitForExpectations(timeout: 5, handler: nil)
+    }
     func testPhotId(){
         
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+             /*  we compare beteween two ids  string an expected id string  get from the web and the othes get it from our photoArray at the same element ,our test can pass or fail if we change the expected id  */
             let photoId = self.sut.photoArray[1].id
-            XCTAssertEqual(photoId, "9KaubGesJ5Q")
-            
+            let idExpectation = self.expectation(description: "idexpectation")
+            idExpectation.fulfill()
+            XCTAssertEqual(photoId, "9KaubGesJ")
+            self.waitForExpectations(timeout: 1, handler: nil)
+        
         }
     }
+    
     func testPhotHight(){
         
-        
+        /*  we compare beteween two heights  Int an expected  height  Int  get from the web  broswer and the othes get it from our photoArray at the same element ,our test can pass or fail if we change the expected hight this test we make it fail because we change the expected value to 1531 instad of 1532  */
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             let photoHeight = self.sut.photoArray[1].height
-            XCTAssertEqual(photoHeight, 1532)
+            print(self.sut.photoArray[1].height)
             
+            XCTAssertEqual(photoHeight, 15)
+         //   self.waitForExpectations(timeout: 1, handler: nil)
+        
         }
+        
     }
 
     func testPerformanceExample() {

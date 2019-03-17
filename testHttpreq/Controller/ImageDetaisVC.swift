@@ -9,21 +9,22 @@
 import UIKit
 
 class ImageDetaisVC: UIViewController {
-    // Mark Outlets
     
     
+    // Outlets
     @IBOutlet weak var imageView: UIImageView!
-    
-     var passedImage: UIImage!
-    var imageUrl : String = ""
+    // Var
+        var passedImage: UIImage!
+        var imageUrl : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    // set the passedImage as ou imageView and provide the user with message if the passdedImage was empty
         if passedImage != nil {
             imageView.image = passedImage
         } else {
             
-            Utilities.alert(title: "Err", message: "error loading photo ")
+            Utilities.alert(title: "Err", message: "error loading photo")
         }
         
        
@@ -36,17 +37,10 @@ class ImageDetaisVC: UIViewController {
     
    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+   
 
 }
+// the zomming effect moving between the view
 extension ImageDetaisVC : ZoomingViewController
 {
     func zoomingBackgroundView(for transition: ZoomTransitioningDelegate) -> UIView? {

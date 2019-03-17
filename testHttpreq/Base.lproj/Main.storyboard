@@ -4,7 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment version="4352" identifier="iOS"/>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -106,14 +106,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gG8-yU-qL3">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obI-jb-xfa">
-                                        <rect key="frame" x="280" y="35" width="80" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obI-jb-xfa">
+                                        <rect key="frame" x="327" y="28" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="aqa-kp-fjW"/>
-                                            <constraint firstAttribute="height" constant="30" id="lqq-UD-0eo"/>
+                                            <constraint firstAttribute="width" constant="40" id="e5i-aC-d1n"/>
+                                            <constraint firstAttribute="height" constant="40" id="sLI-jW-Bb6"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="20"/>
-                                        <state key="normal" title="Cancel"/>
+                                        <state key="normal" image="close"/>
                                         <connections>
                                             <action selector="dismiss:" destination="MW7-b6-wP8" eventType="touchUpInside" id="IrA-Hg-bEH"/>
                                         </connections>
@@ -122,33 +121,29 @@
                                 <color key="backgroundColor" red="0.35686274509999999" green="0.62352941179999999" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="76" id="4XG-Lt-88I"/>
-                                    <constraint firstItem="obI-jb-xfa" firstAttribute="top" secondItem="gG8-yU-qL3" secondAttribute="top" constant="35" id="BvV-Me-Mb8"/>
-                                    <constraint firstAttribute="trailing" secondItem="obI-jb-xfa" secondAttribute="trailing" constant="15" id="Jqz-OS-Zbw"/>
+                                    <constraint firstAttribute="trailing" secondItem="obI-jb-xfa" secondAttribute="trailing" constant="8" id="nO7-zX-sAl"/>
+                                    <constraint firstAttribute="bottom" secondItem="obI-jb-xfa" secondAttribute="bottom" constant="8" id="ngq-yg-EGn"/>
                                 </constraints>
                             </view>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9E2-8T-VP8">
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L32-OW-Y1G">
                                 <rect key="frame" x="0.0" y="76" width="375" height="591"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="SF2-3S-723" firstAttribute="bottom" secondItem="L32-OW-Y1G" secondAttribute="bottom" id="Aiq-aY-xTW"/>
                             <constraint firstItem="gG8-yU-qL3" firstAttribute="leading" secondItem="SF2-3S-723" secondAttribute="leading" id="Bho-NU-8yu"/>
-                            <constraint firstItem="SF2-3S-723" firstAttribute="trailing" secondItem="9E2-8T-VP8" secondAttribute="trailing" id="DZa-fq-EFv"/>
-                            <constraint firstItem="9E2-8T-VP8" firstAttribute="leading" secondItem="SF2-3S-723" secondAttribute="leading" id="KzB-w3-fYK"/>
                             <constraint firstItem="gG8-yU-qL3" firstAttribute="top" secondItem="vDR-7e-SWp" secondAttribute="top" id="W1P-fU-hBe"/>
-                            <constraint firstItem="9E2-8T-VP8" firstAttribute="top" secondItem="gG8-yU-qL3" secondAttribute="bottom" id="jJF-dB-xIi"/>
+                            <constraint firstItem="SF2-3S-723" firstAttribute="trailing" secondItem="L32-OW-Y1G" secondAttribute="trailing" id="oCL-WM-D4t"/>
                             <constraint firstItem="gG8-yU-qL3" firstAttribute="trailing" secondItem="SF2-3S-723" secondAttribute="trailing" id="oF1-Ow-hIL"/>
-                            <constraint firstItem="SF2-3S-723" firstAttribute="bottom" secondItem="9E2-8T-VP8" secondAttribute="bottom" id="zTV-zb-vIh"/>
+                            <constraint firstItem="L32-OW-Y1G" firstAttribute="leading" secondItem="SF2-3S-723" secondAttribute="leading" id="uL9-u5-8Un"/>
+                            <constraint firstItem="L32-OW-Y1G" firstAttribute="top" secondItem="gG8-yU-qL3" secondAttribute="bottom" id="xCg-LD-Lwn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SF2-3S-723"/>
                     </view>
                     <connections>
-                        <outlet property="webView" destination="9E2-8T-VP8" id="5kV-SY-Aqn"/>
+                        <outlet property="webView" destination="L32-OW-Y1G" id="QkN-Vi-BWd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Frg-83-JKH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -219,6 +214,7 @@
     </scenes>
     <resources>
         <image name="MenuPoint" width="50" height="50"/>
+        <image name="close" width="50" height="50"/>
     </resources>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
