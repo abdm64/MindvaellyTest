@@ -15,6 +15,7 @@ import SDWebImage
 
 
 
+
 class PhotosVC : UIViewController {
     // Outltes
     @IBOutlet weak var collectionView: UICollectionView!
@@ -31,8 +32,8 @@ class PhotosVC : UIViewController {
     let mystoryboard =  MYStoryboard()
     let refresh = UIRefreshControl()
     let imageHolder = UIImage(named: "PlaceHolder-1")
-    var photoArray = [Photo]()
-    var photoArrayTest = [Photo]()
+    var photoArray : [Photo] = []
+    
 
    
 
@@ -40,16 +41,17 @@ class PhotosVC : UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         // call the func retruveDatafromUrl(url: BASE_URL) using the  BASE_URL (the url send it to me via email)
-       self.retruveDatafromUrl(url: BASE_URL)
+        
+
+        
         
         /*in all the networking operation we expected  some delay in case internet connection slow or somthing so i add DispatchQueue.main.asyncAfter(deadline: .now() + 1) to ensure that all data was downloaded and make smooth user experience */
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.activityIndicator.stopAnimating()
-             self.collectionView.reloadData()
-            
-            
+            self.collectionView.reloadData()
         }
+        
+       
         // add func pullTorefresh action to our view
         self.pullTorefresh()
        // setup the delegate
@@ -60,12 +62,30 @@ class PhotosVC : UIViewController {
             // update the UI
             collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
+         /*in all the networking operation we expected  some delay in case internet connection slow or somthing so i add DispatchQueue.main.asyncAfter() to ensure that all data was downloaded and make smooth user experience */
+        DispatchQueue.main.async {
+            self.retruveDatafromUrl(url: BASE_URL, complition:  { (suecess) in
+                if suecess {
+                    
+                    
+                    
+                    self.collectionView.reloadData()
+                    
+                    
+                } else {
+                    print("eroor")
+                }
+                
+            }
+            )
+            
+        }
         
     }
     //Mark UI
     @objc func refreshView(){
        // we use refreshView func to relead for our collectionView and get more data from internet ("our url")
-        self.retruveDatafromUrl(url: BASE_URL)
+        //self.retruveDatafromUrl(url: BASE_URL)
          self.collectionView.reloadData()
        
         refresh.endRefreshing()
@@ -85,7 +105,7 @@ class PhotosVC : UIViewController {
     
    
     
-    func retruveDatafromUrl(url : String) {
+    func retruveDatafromUrl(url : String,  complition : @escaping (_ status: Bool)-> ()) {
         
         // this func allow us retrive the Json data from the url
              let url = URL(string: url)
@@ -101,6 +121,8 @@ class PhotosVC : UIViewController {
                     self.retrivePhotoData(i: i, jsonData: jsonData)
                     
                 }
+                self.collectionView.reloadData()
+                complition(true)
                 
                 
                 
@@ -118,6 +140,8 @@ class PhotosVC : UIViewController {
     func retrivePhotoData(i: Int, jsonData : JSON){
         // Message from developer
         /* i used SWiftyJSON to deal with  the url because SwiftyJSON is powerful tools to deal with JSON  so no need to safe unrrwap for the value because swiftyjson is already  done taht for us */
+        
+        
         let id = jsonData[i]["id"].stringValue
         let rowUrl = jsonData[i]["urls"]["raw"].stringValue
         let fullUrl  = jsonData[i]["urls"]["full"].stringValue
@@ -126,12 +150,19 @@ class PhotosVC : UIViewController {
         let thumbUrl =  jsonData[i]["urls"]["thumb"].stringValue
         let height = jsonData[i]["height"].intValue
         // after get the data from the url  we save it in array from photo to use it later to download image from the web
-        let url = Photo(id: id, raw: rowUrl, full: fullUrl, regular: regularUrl, small: smallUrl, thumb: thumbUrl, height: height)
+        let photo = Photo.init(id: id, raw: rowUrl, full: fullUrl, regular: regularUrl, small: smallUrl, thumb: thumbUrl, height: height)
         // save it to the array
         
-        self.photoArray.append(url)
-    
+        
+        self.photoArray.append(photo)
       
+        
+           // self.photoArray.append(url)
+
+        
+        
+        
+        
         
     }
     @objc func takeAction(sender : UIButton){
@@ -263,7 +294,7 @@ extension  PhotosVC : UICollectionViewDataSource, UICollectionViewDelegate{
         }
         /* you can notice i used SDWebImage as default image downloader because it's so simple and efficase to download image from internet but i can use my downloader image extention for exemple : */
       // DOWNLOAD IMAGE WITHOUT SDWEBimage
-      //cell.imageView.downloadImage(withUrlString:photoArray[indexPath.item].regular )
+     // cell.imageView.downloadImage(withUrlString:photoArray[indexPath.item].regular )
         
         // deal with the button on the cell by saving the tag of the button
     

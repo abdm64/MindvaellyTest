@@ -63,32 +63,7 @@ class PhotoCell: UICollectionViewCell {
             }
         }).resume()
         }
-    func cancalDownloadImage(url : String ){
-        
-        guard let url = URL(string: url) else {return}
-        
-        print("imageDownload canceld ", url)
-        
-        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-            
-            if error != nil {
-                debugPrint(String(describing: error?.localizedDescription))
-                return
-            }
-            
-            DispatchQueue.main.async {
-                if  let imageToCache = UIImage(data: data!) {
-                    self.imageView.image = imageToCache
-                   
-                    imageCache.setObject(imageToCache, forKey: url.absoluteString as AnyObject)
-                }
-                
-                
-                
-            }
-        }).cancel()
-        
-        }
+   
     // Message from developer
     /*setup the view of the cell and make it looks better */
     func setView(){

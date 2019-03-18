@@ -12,13 +12,13 @@ import Foundation
 //typealias Photos = [Photo]
 
 struct Photo {
-    public private(set)  var id: String
-    public private(set)  var raw: String
-    public private(set) var full: String
-    public private(set) var regular: String
-    public private(set) var small: String
-    public private(set) var thumb: String
-     public private(set) var  height : Int
+   let id: String
+   let raw: String
+   let full: String
+    let regular: String
+   let small: String
+   let thumb: String
+    let  height : Int
 
 }
 //struct Photo {
