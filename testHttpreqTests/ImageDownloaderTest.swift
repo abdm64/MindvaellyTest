@@ -14,7 +14,7 @@ class ImageDownloaderTest: XCTestCase {
     var photoArrayTest = [Photo]()
 
     override func setUp() {
-        super.setUp()
+       // super.setUp()
         
             // your code here
             
@@ -32,7 +32,7 @@ class ImageDownloaderTest: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         sut = nil
-        super.tearDown()
+       // super.tearDown()
     }
 
     func testPhotoDownload(){
@@ -53,6 +53,7 @@ class ImageDownloaderTest: XCTestCase {
             }
        
             }.resume()
+    //    print("tesst", self.sut.photoArray.count)
         
         waitForExpectations(timeout: 8, handler: nil)
         

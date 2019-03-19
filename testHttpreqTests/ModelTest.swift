@@ -47,11 +47,16 @@ class ModelTest: XCTestCase {
         
        
              /*  we compare beteween two ids  string an expected id string  get from the web and the othes get it from our photoArray at the same element ,our test can pass or fail if we change the expected id  */
-            let photoId = self.sut.photoArray[1].id
+            //let photoId = self.sut.photoArray[1].id
             let idExpectation = self.expectation(description: "idexpectation")
             idExpectation.fulfill()
-            XCTAssertEqual(photoId, "9KaubGesJ")
+            XCTAssertEqual("p", "9KaubGesJ")
+            print("te", self.sut.photoArray.count)
             self.waitForExpectations(timeout: 1, handler: nil)
+        
+        
+        
+        
         
         
     }

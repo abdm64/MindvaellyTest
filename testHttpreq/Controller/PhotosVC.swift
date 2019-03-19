@@ -70,6 +70,7 @@ class PhotosVC : UIViewController {
                     
                     
                     self.collectionView.reloadData()
+                    print("mainView", self.photoArray.count)
                     
                     
                 } else {
